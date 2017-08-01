@@ -1,19 +1,12 @@
-function getCurrentTabUrl(callback) {
-  chrome.tabs.query({
-    active: true,
-    currentWindow: true
-  }, function (tabs) {
-    callback(tabs)
-  })
-}
+import { run } from '@cycle/run'
+import { makeDOMDriver } from '@cycle/dom'
+import xs from 'xstream'
 
-// start
 function main () {
-  getCurrentTabUrl(tabs => {
-    window.alert(JSON.stringify(tabs))
-    console.info(tabs)
-  })
+  return {
+  }
 }
 
-
-document.addEventListener('DOMContentLoaded', main)
+run(main, {
+  DOM: makeDOMDriver('#app')
+})

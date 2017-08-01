@@ -10,7 +10,15 @@ const ones$ = xs.periodic(100)
 const zeros$ = xs.periodic(100)
                  .mapTo(0)
 
-console.log('hello,world background')
+chrome.runtime.onInstalled.addListener(function () {
+})
+chrome.runtime.onSuspend.addListener(function () {
+})
+chrome.tabs.onActivated.addListener(function (activeInfo) {
+  console.log(activeInfo)
+})
+
+
 const storage$ = (function () {
   return xs.create({
     start: listener => {
