@@ -1,5 +1,7 @@
 import xs from 'xstream'
 import delay from 'xstream/extra/delay'
+import debounce from 'xstream/extra/debounce'
+import throttle from 'xstream/extra/throttle'
 
 const debug = function (...args) {
   console.log('background:', ...args)
@@ -20,17 +22,17 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
 
 const storage$ = (function () {
+  let slistener = null
   return xs.create({
     start: listener => {
-      this.listener = listener
-
-      chrome.storage.onChange.addListener(function (changes, namespace) {
+      slistener = listener
+      chrome.storage.onChanged.addListener(function (changes, namespace) {
         debug('chages->', changes)
-        listener.next({changes, namespace})
+        slistener.next({changes, namespace})
       })
     },
     stop: () => {
-      chrome.storage.onChange.removeListener(this.listener)
+      chrome.storage.onChanged.removeListener(slistener)
     }
   })
 })()
