@@ -8,6 +8,13 @@
     "default_popup": "popup.html",
     "default_title": "record doc history"
   },
+  "content_scripts": [{
+    "matches": ["https://www.google.com/*", "https://www.google.com.hk/*"],
+    "js": ["content.js"]
+  }],
+  "background": {
+    "scripts": ["./background.js"]
+  },
   "permissions": [
     "activeTab",
     "storage"

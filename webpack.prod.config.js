@@ -5,10 +5,14 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const CleanupWebpackPlugin = require('webpack-cleanup-plugin')
 
 module.exports = {
-  "entry": "./popup.js",
+  "entry": {
+    "popup": "./popup.js",
+    "content": "./content.js",
+    "background": "./background.js"
+  },
   "output": {
     "path": path.resolve(__dirname, "dist"),
-    "filename": "popup.js"
+    "filename": "[name].js"
   },
   "module": {
     "rules": [{
@@ -20,7 +24,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './template/popup.html',
       inject: 'body',
-      filename: 'popup.html'
+      filename: 'popup.html',
+      chunk: "popup"
     }),
     new webpack.optimize.UglifyJsPlugin(),
     new CopyWebpackPlugin([

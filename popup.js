@@ -10,6 +10,7 @@ function getCurrentTabUrl(callback) {
 // start
 function main () {
   getCurrentTabUrl(tabs => {
+    window.alert(JSON.stringify(tabs))
     console.info(tabs)
   })
 }
